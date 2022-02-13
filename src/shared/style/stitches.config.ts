@@ -24,12 +24,14 @@ export const {
       darkBlue: "#191C2F",
       white: "#EFF0F3",
       green: "#055A51",
+      orange: "#FB965A",
     },
     fonts: {
       default: "Lato",
     },
     shadows: {
       orange: "#FB965A",
+      green: "#055A51",
     },
   },
   utils: {
