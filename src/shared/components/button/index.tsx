@@ -8,7 +8,7 @@ const scaleUp = keyframes({
 export const Button = styled("button", {
   "&:hover": {
     animation: `${scaleUp} 200ms`,
-    transform: "scale(1.5)",
+    transform: "scale(1.1)",
   },
   all: "unset",
   display: "flex",

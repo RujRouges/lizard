@@ -8,8 +8,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
 
-type DetectionType = {
+export type DetectionType = {
   expressions: ExpressionsType;
+  age: number;
+  gender: string;
 };
 
 export type ExpressionsType = {
@@ -25,14 +27,15 @@ export type ExpressionsType = {
 export const HomePage = () => {
   const imageRef = useRef() as React.MutableRefObject<HTMLImageElement>;
   const webcamRef = useRef() as React.MutableRefObject<Webcam>;
-  const [image, setImage] = useState<string | null>("");
+  const [image, setImage] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [expressions, setExpressions] = useState<ExpressionsType | null>(null);
+  const [detection, setDetection] = useState<DetectionType | null>(null);
 
   useEffect(() => {
     Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri("/model"),
       faceapi.nets.faceExpressionNet.loadFromUri("/model"),
+      faceapi.nets.ageGenderNet.loadFromUri("/model"),
     ]).catch((e) => console.log("Error: ", e));
   });
 
@@ -43,7 +46,7 @@ export const HomePage = () => {
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setImage(imageSrc);
+    imageSrc && setImage(imageSrc);
   }, [webcamRef]);
 
   const handleImage = async () => {
@@ -53,10 +56,11 @@ export const HomePage = () => {
           imageRef.current,
           new faceapi.TinyFaceDetectorOptions()
         )
-        .withFaceExpressions();
+        .withFaceExpressions()
+        .withAgeAndGender();
 
       if (detection) {
-        setExpressions(detection.expressions);
+        setDetection(detection);
       }
     }
   };
@@ -72,14 +76,16 @@ export const HomePage = () => {
       <Wrapper>
         <WebcamComponent webcamRef={webcamRef} isEnabled={!isOpen} />
       </Wrapper>
-      <Button onClick={handleClick}>VAI</Button>
+      <Button onClick={handleClick}>HUMOR</Button>
+      <Button onClick={handleClick}>AGE / GENDER</Button>
       <Modal
         setOpen={isOpen}
         imageSrc={image!}
         imageRef={imageRef}
-        expressions={expressions}
+        detection={detection}
         onOutsideClick={() => {
           setIsOpen(false);
+          setDetection(detection);
         }}
       />
     </Flex>

@@ -1,14 +1,13 @@
-import { ExpressionsType } from ".";
+import { DetectionType } from ".";
 import { moreVisibleEmotion } from "./utils";
 import { keyframes, styled } from "../../shared/style/stitches.config";
-import { useState } from "react";
 import { Loader } from "../../shared/components/loader";
 
 type ModalType = {
   setOpen: boolean;
   imageSrc: string;
   imageRef: React.MutableRefObject<HTMLImageElement>;
-  expressions: ExpressionsType | null;
+  detection: DetectionType | null;
   onOutsideClick: () => void;
 };
 
@@ -16,7 +15,7 @@ export const Modal: React.FC<ModalType> = ({
   setOpen,
   imageSrc,
   imageRef,
-  expressions,
+  detection,
   onOutsideClick,
 }) => {
   return (
@@ -28,11 +27,11 @@ export const Modal: React.FC<ModalType> = ({
             <Img ref={imageRef} src={imageSrc} alt="" />
           </ImageContainer>
           <TextContainer>
-            {expressions ? (
+            {detection ? (
               <Column>
                 <EmotionText>Il tuo stato d'animo è</EmotionText>
                 <EmotionTitle>
-                  {moreVisibleEmotion(expressions)!.toUpperCase()}
+                  {moreVisibleEmotion(detection.expressions)!.toUpperCase()}
                 </EmotionTitle>
                 <EmotionText>
                   Prova ad ascoltare un po' di questa playlist
