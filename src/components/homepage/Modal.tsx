@@ -1,10 +1,11 @@
-import { DetectionType } from ".";
+import { DetectionType, ModalStep } from ".";
 import { moreVisibleEmotion } from "./utils";
 import { keyframes, styled } from "../../shared/style/stitches.config";
 import { Loader } from "../../shared/components/loader";
 
 type ModalType = {
   setOpen: boolean;
+  modalStep: ModalStep;
   imageSrc: string;
   imageRef: React.MutableRefObject<HTMLImageElement>;
   detection: DetectionType | null;
@@ -13,6 +14,7 @@ type ModalType = {
 
 export const Modal: React.FC<ModalType> = ({
   setOpen,
+  modalStep,
   imageSrc,
   imageRef,
   detection,
@@ -28,15 +30,24 @@ export const Modal: React.FC<ModalType> = ({
           </ImageContainer>
           <TextContainer>
             {detection ? (
-              <Column>
-                <EmotionText>Il tuo stato d'animo è</EmotionText>
-                <EmotionTitle>
-                  {moreVisibleEmotion(detection.expressions)!.toUpperCase()}
-                </EmotionTitle>
-                <EmotionText>
-                  Prova ad ascoltare un po' di questa playlist
-                </EmotionText>
-              </Column>
+              modalStep === "mood" ? (
+                <Column>
+                  <EmotionText>Il tuo stato d'animo è</EmotionText>
+                  <EmotionTitle>
+                    {moreVisibleEmotion(detection.expressions)!.toUpperCase()}
+                  </EmotionTitle>
+                  <EmotionText>
+                    Prova ad ascoltare un po' di questa playlist
+                  </EmotionText>
+                </Column>
+              ) : (
+                <Column>
+                  <EmotionText>Your gender is</EmotionText>
+                  <EmotionTitle>{detection.gender.toUpperCase()}</EmotionTitle>
+                  <EmotionText>Your age is</EmotionText>
+                  <EmotionTitle>{detection.age.toFixed(0)}</EmotionTitle>
+                </Column>
+              )
             ) : (
               <Loader />
             )}
@@ -131,7 +142,7 @@ const ImageContainer = styled("div", {
   width: 400,
   overflow: "hidden",
   borderRadius: 16,
-  boxShadow: "16px 16px $green",
+  boxShadow: "16px 16px $green, -16px -16px $orange",
 });
 
 const Img = styled("img", {

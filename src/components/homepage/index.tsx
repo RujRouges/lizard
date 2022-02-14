@@ -24,12 +24,15 @@ export type ExpressionsType = {
   surprised: number;
 };
 
+export type ModalStep = "mood" | "age/gender";
+
 export const HomePage = () => {
   const imageRef = useRef() as React.MutableRefObject<HTMLImageElement>;
   const webcamRef = useRef() as React.MutableRefObject<Webcam>;
   const [image, setImage] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [detection, setDetection] = useState<DetectionType | null>(null);
+  const [modalStep, setModalStep] = useState<ModalStep>("mood");
 
   useEffect(() => {
     Promise.all([
@@ -65,8 +68,9 @@ export const HomePage = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (modalStep: ModalStep) => {
     capture();
+    setModalStep(modalStep);
     setIsOpen(true);
   };
 
@@ -76,10 +80,13 @@ export const HomePage = () => {
       <Wrapper>
         <WebcamComponent webcamRef={webcamRef} isEnabled={!isOpen} />
       </Wrapper>
-      <Button onClick={handleClick}>HUMOR</Button>
-      <Button onClick={handleClick}>AGE / GENDER</Button>
+      <Row>
+        <Button onClick={() => handleClick("mood")}>MOOD</Button>
+        <Button onClick={() => handleClick("age/gender")}>AGE / GENDER</Button>
+      </Row>
       <Modal
         setOpen={isOpen}
+        modalStep={modalStep}
         imageSrc={image!}
         imageRef={imageRef}
         detection={detection}
@@ -108,4 +115,8 @@ const Flex = styled("div", {
 
 const Wrapper = styled("div", {});
 
-// const ButtonStyle = css({});
+const Row = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+  gap: 15,
+});

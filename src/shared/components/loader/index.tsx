@@ -1,9 +1,7 @@
-import { MutatingDots } from "react-loader-spinner";
 import { keyframes, styled } from "../../style/stitches.config";
 
 const spin = keyframes({
-  "0%": { transform: "rotate(0deg)" },
-  "100%": { transform: "rotate(360deg)" },
+  "100%": { transform: " rotate(360deg)" },
 });
 
 export const Loader = styled("div", {
@@ -12,6 +10,5 @@ export const Loader = styled("div", {
   borderTop: "16px solid $orange",
   width: 120,
   height: 120,
-  animation: `${spin} 1s`,
-  animationIterationCount: "infinite",
+  animation: `${spin} 2s infinite`,
 });
