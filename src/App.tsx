@@ -1,6 +1,6 @@
 import { globalCss } from "@stitches/react";
 import { normalize, opinionated } from "stitches-normalize-css";
-import { HomePage } from "./components/homepage";
+import { FaceScan } from "./components/FaceScan";
 
 const globalStyles = globalCss(...normalize, ...opinionated, {
   body: {
@@ -12,7 +12,7 @@ const globalStyles = globalCss(...normalize, ...opinionated, {
 const App = () => {
   globalStyles();
 
-  return <HomePage />;
+  return <FaceScan />;
 };
 
 export default App;

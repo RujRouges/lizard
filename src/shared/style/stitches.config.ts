@@ -20,18 +20,18 @@ export const {
   },
   theme: {
     colors: {
-      background: "$darkBlue",
-      darkBlue: "#191C2F",
-      white: "#EFF0F3",
-      green: "#055A51",
-      orange: "#FB965A",
+      bg: "$greenDark",
+      white: "#FAFAFA",
+      greenLight: "#5EC29B",
+      greenDark: "#384B42",
+      blue: "#56B9F6",
+      trasparent: "#FFFFFF00",
     },
     fonts: {
-      default: "Lato",
+      default: "Poppins",
     },
     shadows: {
-      orange: "#FB965A",
-      green: "#055A51",
+      white: "#FAFAFA",
     },
   },
   utils: {

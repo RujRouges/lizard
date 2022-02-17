@@ -6,11 +6,13 @@ import { css, styled } from "../../shared/style/stitches.config";
 type WebcamType = {
   webcamRef: React.MutableRefObject<Webcam>;
   isEnabled: boolean;
+  className?: string;
 };
 
 export const WebcamComponent: React.FC<WebcamType> = ({
   webcamRef,
   isEnabled,
+  className,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(isEnabled);
 
@@ -18,7 +20,7 @@ export const WebcamComponent: React.FC<WebcamType> = ({
     !isEnabled && setIsLoading(true);
   }, [isEnabled]);
   return (
-    <Container>
+    <Container className={className ? className : ""}>
       {isEnabled && (
         <Webcam
           ref={webcamRef}
@@ -28,7 +30,7 @@ export const WebcamComponent: React.FC<WebcamType> = ({
           onUserMedia={() => setIsLoading(false)}
         />
       )}
-      {isLoading && <Loader className={PositionAbsolute()} />}
+      {isLoading && <Loader />}
     </Container>
   );
 };
@@ -37,16 +39,14 @@ const Container = styled("div", {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: 500,
-  width: 500,
+  height: 550,
+  width: 550,
   backgroundColor: "$white",
-  borderRadius: 16,
-  boxShadow: "16px 16px $orange, -16px -16px $green",
+  borderRadius: 4,
+  boxShadow: "12px 12px $white",
   overflow: "hidden",
 });
 
 const StyledWebcam = css({
   height: "100%",
 });
-
-const PositionAbsolute = css({ position: "absolute" });
