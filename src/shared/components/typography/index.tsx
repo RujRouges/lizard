@@ -18,6 +18,11 @@ export const Paragraph = styled("p", {
   all: "unset",
   color: "$white",
   variants: {
+    textAlign: {
+      start: { textAlign: "start" },
+      center: { textAlign: "center" },
+      end: { textAlign: "end" },
+    },
     color: {
       greenDark: {
         color: "$greenDark",

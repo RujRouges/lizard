@@ -32,6 +32,8 @@ export const {
     },
     shadows: {
       white: "#FAFAFA",
+      greenLight: "#5EC29B",
+      red: "#C8356A",
     },
   },
   utils: {
