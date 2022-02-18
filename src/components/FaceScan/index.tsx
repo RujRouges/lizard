@@ -30,6 +30,7 @@ export const FaceScan: React.FC = () => {
   const [image, setImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [detection, setDetection] = useState<DetectionType | null>(null);
+  const [isEnabled, setIsEnabled] = useState<boolean>(true);
 
   useEffect(() => {
     Promise.all([
@@ -61,6 +62,7 @@ export const FaceScan: React.FC = () => {
 
       if (detection) {
         setDetection(detection);
+        setIsLoading(false);
         notify("success", "Good photo! You look amazing!");
       } else {
         setImage("");
@@ -73,6 +75,7 @@ export const FaceScan: React.FC = () => {
   };
 
   const handleClick = () => {
+    setIsLoading(true);
     if (!detection) {
       capture();
     } else {
@@ -95,8 +98,8 @@ export const FaceScan: React.FC = () => {
           {!image ? (
             <WebcamComponent
               webcamRef={webcamRef}
-              isEnabled={true}
               className={WebcamStyle()}
+              setIsEnabled={setIsEnabled}
             />
           ) : (
             <ImageContainer>
@@ -106,6 +109,7 @@ export const FaceScan: React.FC = () => {
 
           <Button
             isLoading={isLoading}
+            disabled={!isEnabled}
             onClick={handleClick}
             style={{ marginTop: 32, alignSelf: "center" }}
           >
@@ -154,7 +158,6 @@ const Column = styled("div", {
 });
 
 const WebcamStyle = css({
-  marginTop: 32,
   alignSelf: "center",
 });
 
@@ -166,9 +169,8 @@ const ImageContainer = styled("div", {
   width: 550,
   backgroundColor: "$white",
   borderRadius: 4,
-  boxShadow: "12px 12px $white",
+  boxShadow: "12px 12px $greenLight",
   overflow: "hidden",
-  marginTop: 32,
   alignSelf: "center",
 });
 

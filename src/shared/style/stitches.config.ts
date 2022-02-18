@@ -24,6 +24,7 @@ export const {
       white: "#FAFAFA",
       greenLight: "#5EC29B",
       greenDark: "#384B42",
+      greyDark: "#3F3E3F",
       blue: "#56B9F6",
       trasparent: "#FFFFFF00",
     },

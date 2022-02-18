@@ -8,10 +8,6 @@ const scaleUp = keyframes({
 });
 
 export const Btn = styled("button", {
-  "&:hover": {
-    animation: `${scaleUp} 200ms`,
-    transform: "scale(1.1)",
-  },
   all: "unset",
   display: "flex",
   height: 60,
@@ -25,22 +21,38 @@ export const Btn = styled("button", {
   borderRadius: "30px",
   fontSize: 32,
   fontWeight: 700,
+  variants: {
+    off: {
+      true: {
+        backgroundColor: "$greyDark",
+        color: "$white",
+      },
+      false: {
+        "&:hover": {
+          animation: `${scaleUp} 200ms`,
+          transform: "scale(1.1)",
+        },
+      },
+    },
+  },
 });
 
 type ButtonType = {
+  disabled: boolean;
   isLoading?: boolean;
   onClick: () => void;
   style?: CSSProperties;
 };
 
 export const Button: React.FC<ButtonType> = ({
+  disabled,
   isLoading,
   onClick,
   style,
   children,
 }) => {
   return (
-    <Btn onClick={onClick} style={style}>
+    <Btn onClick={onClick} style={style} disabled={disabled} off={disabled}>
       {!isLoading ? children : <Loader size="little" color="greenDark" />}
     </Btn>
   );
