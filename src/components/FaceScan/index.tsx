@@ -7,6 +7,7 @@ import { WebcamComponent } from "./WebcamComponent";
 import * as faceapi from "face-api.js";
 import { InformationPanel } from "./InformationPanel";
 import { notify } from "../../shared/components/notification";
+import Pattern from "../../shared/static/background/pattern.svg";
 
 export type DetectionType = {
   expressions: ExpressionsType;
@@ -130,6 +131,9 @@ const Flex = styled("div", {
   height: "100vh",
   width: "100vw",
   background: "$bg",
+  backgroundImage: `url(${Pattern})`,
+  backgroundRepeat: "repeat",
+  backgroundSize: 360,
 });
 
 const TitleWrapper = styled("span", {

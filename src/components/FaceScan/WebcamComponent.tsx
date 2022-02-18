@@ -53,7 +53,7 @@ export const WebcamComponent: React.FC<WebcamType> = ({
 
 const scaleUp = keyframes({
   "0%": { transform: "scale(1)" },
-  "100%": { transform: "scale(1.1)" },
+  "100%": { transform: "scale(1.05)" },
 });
 
 const Flex = styled("div", {
@@ -78,7 +78,7 @@ const Container = styled("div", {
 const EyeWrapper = styled("div", {
   "&:hover": {
     animation: `${scaleUp} 200ms`,
-    transform: "scale(1.1)",
+    transform: "scale(1.05)",
   },
   display: "flex",
   justifyContent: "center",

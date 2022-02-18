@@ -52,7 +52,12 @@ export const Button: React.FC<ButtonType> = ({
   children,
 }) => {
   return (
-    <Btn onClick={onClick} style={style} disabled={disabled} off={disabled}>
+    <Btn
+      onClick={onClick}
+      style={style}
+      disabled={disabled || isLoading}
+      off={disabled}
+    >
       {!isLoading ? children : <Loader size="little" color="greenDark" />}
     </Btn>
   );
